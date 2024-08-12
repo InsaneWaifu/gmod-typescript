@@ -6029,7 +6029,7 @@ interface Entity {
      * @param key - The key that is associated with the value
      * @param [fallback = ] - The value to return if we failed to retrieve the value. (If it isn't set)
      */
-    GetNetworked2String(key: string, fallback?: any): any;
+    GetNetworked2String(key: string, fallback = 0): any;
     
     /**
      * [Shared]
@@ -6149,7 +6149,7 @@ interface Entity {
      * @param key - The key that is associated with the value
      * @param [fallback = ] - The value to return if we failed to retrieve the value. ( If it isn't set )
      */
-    GetNetworkedString(key: string, fallback?: string): string;
+    GetNetworkedString(key: string, fallback = 0): string;
     
     /**
      * [Shared]
@@ -6304,7 +6304,7 @@ interface Entity {
      * @param key - The key that is associated with the value
      * @param [fallback = ] - The value to return if we failed to retrieve the value. (If it isn't set)
      */
-    GetNW2String(key: string, fallback?: any): any;
+    GetNW2String(key: string, fallback = 0): any;
     
     /**
      * [Shared]
@@ -6400,7 +6400,7 @@ interface Entity {
      * @param key - The key that is associated with the value
      * @param [fallback = ] - The value to return if we failed to retrieve the value. (If it isn't set)
      */
-    GetNWString(key: string, fallback?: any): any;
+    GetNWString(key: string, fallback = 0): any;
     
     /**
      * [Shared]
@@ -9290,7 +9290,7 @@ interface Entity {
      * @param key - The key to associate the value with
      * @param [value = ] - The value to set
      */
-    SetNetworkedString(key: string, value?: string): void;
+    SetNetworkedString(key: string, value = 0): void;
     
     /**
      * [Shared]
@@ -19143,7 +19143,7 @@ interface Player extends Entity, Entity {
      * [Shared]
      * 
      * Gets whether a key was just pressed this tick.
-     * @param key - Corresponds to an [Enums/IN](https://wiki.facepunch.com/gmod/Enums/IN)
+     * @param key - Corresponds to an [Enums/IN](https://wiki.facepunch.com/gmod/Enums/IN). You can use [bit.bor](https://wiki.facepunch.com/gmod/bit.bor) here (see example 2)
      */
     KeyPressed(key: IN): boolean;
     
@@ -22705,7 +22705,7 @@ interface Weapon extends Entity, Entity {
      * @param functionName - Name of function to call. If you want to call `SWEP:MyFunc()` on client, you type in `"MyFunc"`
      * @param [data = ] - Custom data to be passed to the target SWEP function as the first argument.
      */
-    CallOnClient(functionName: string, data?: string): void;
+    CallOnClient(functionName: string, data = 0): void;
     
     /**
      * [Shared]
@@ -32709,9 +32709,9 @@ interface DTooltip extends DLabel {
      * >You can only have one Panel at a time; use Parenting to add more
      * 
      * @param panel - Contents
-     * @param [delete = false] - If set to true, the panel in the first argument will be automatically removed when [DTooltip](https://wiki.facepunch.com/gmod/DTooltip) is closed via [DTooltip:Close](https://wiki.facepunch.com/gmod/DTooltip:Close).
+     * @param [delete_ = false] - If set to true, the panel in the first argument will be automatically removed when [DTooltip](https://wiki.facepunch.com/gmod/DTooltip) is closed via [DTooltip:Close](https://wiki.facepunch.com/gmod/DTooltip:Close).
      */
-    SetContents(panel: Panel, delete = false): void;
+    SetContents(panel: Panel, delete_ = false): void;
 
 }
 
@@ -55590,7 +55590,7 @@ declare function ConVarExists(name: string): boolean;
  * @param [min = nil] - If set, the convar cannot be changed to a number lower than this value.
  * @param [max = nil] - If set, the convar cannot be changed to a number higher than this value.
  */
-declare function CreateClientConVar(name: string, default_: string, shouldsave = true, userinfo = false, helptext?: string, min?: number, max?: number): ConVar;
+declare function CreateClientConVar(name: string, default_: string, shouldsave = true, userinfo = false, helptext = 0, min?: number, max?: number): ConVar;
 
 /**
  * [Client]
@@ -55616,7 +55616,7 @@ declare function CreateContextMenu(): void;
  * @param [min = nil] - If set, the ConVar cannot be changed to a number lower than this value.
  * @param [max = nil] - If set, the ConVar cannot be changed to a number higher than this value.
  */
-declare function CreateConVar(name: string, value: string, flags?: FCVAR, helptext?: string, min?: number, max?: number): ConVar;
+declare function CreateConVar(name: string, value: string, flags?: FCVAR, helptext = 0, min?: number, max?: number): ConVar;
 
 /**
  * [Client and Menu]
@@ -56379,7 +56379,7 @@ declare function FireAddonConflicts(): void;
  * 
  * @param problem - The problem's definition.
  */
-declare function FireProblem(problem: Structures/Problem): void;
+declare function FireProblem(problem: Problem): void;
 
 /**
  * [Menu]
@@ -56673,7 +56673,7 @@ declare function GetGlobal2Int(index: string, default_ = 0): number;
  * @param index - The unique index to identify the global value with.
  * @param [default_ = ] - The value to return if the global value is not set.
  */
-declare function GetGlobal2String(index: string, default_?: string): string;
+declare function GetGlobal2String(index: string, default_ = 0): string;
 
 /**
  * [Shared]
@@ -56749,7 +56749,7 @@ declare function GetGlobalInt(index: string, default_ = 0): number;
  * @param index - The unique index to identify the global value with.
  * @param [default_ = ] - The value to return if the global value is not set.
  */
-declare function GetGlobalString(index: string, default_?: string): string;
+declare function GetGlobalString(index: string, default_ = 0): string;
 
 /**
  * [Shared]
@@ -60086,7 +60086,7 @@ declare namespace constraint {
      * @param [stretchOnly = false] - Apply physics forces only on stretch.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Elastic(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, constant: number, damping: number, relDamping: number, material?: string, width: number, stretchOnly = false, color?: any): LuaMultiReturn<[Entity, Entity]>;
+    function Elastic(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, constant: number, damping: number, relDamping: number, material = 0, width: number, stretchOnly = false, color?: any): LuaMultiReturn<[Entity, Entity]>;
     
     /**
      * [Server]
@@ -60243,7 +60243,7 @@ declare namespace constraint {
      * @param [toggle = true] - Whether the hydraulic should be a toggle, not a "hold key to extend" action.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Hydraulic(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length1: number, length2: number, width: number, key: KEY, slider: number, speed: number, material?: string, toggle = true, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
+    function Hydraulic(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length1: number, length2: number, width: number, key: KEY, slider: number, speed: number, material = 0, toggle = true, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
     
     /**
      * [Server]
@@ -60309,7 +60309,7 @@ declare namespace constraint {
      * @param [material = ] - Material of the rope. If left unset, will be solid black.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Muscle(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length1: number, length2: number, width: number, key: KEY, fixed: number, period: number, amplitude: number, startOn = false, material?: string, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
+    function Muscle(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length1: number, length2: number, width: number, key: KEY, fixed: number, period: number, amplitude: number, startOn = false, material = 0, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
     
     /**
      * [Server]
@@ -60358,7 +60358,7 @@ declare namespace constraint {
      * @param [material = ] - Material of the rope. If unset, will be solid black.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Pulley(ent1: Entity, ent4: Entity, bone1: number, bone4: number, localPos1: Vector, localPos4: Vector, worldPos2: Vector, worldPos3: Vector, forceLimit: number, rigid = false, width: number, material?: string, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
+    function Pulley(ent1: Entity, ent4: Entity, bone1: number, bone4: number, localPos1: Vector, localPos4: Vector, worldPos2: Vector, worldPos3: Vector, forceLimit: number, rigid = false, width: number, material = 0, color?: any): LuaMultiReturn<[Entity, Entity, Entity, Entity]>;
     
     /**
      * [Server]
@@ -60397,7 +60397,7 @@ declare namespace constraint {
      * @param [rigid = false] - Whether the constraint is rigid.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Rope(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length: number, addLength = 0, forceLimit = 0, width: number, material?: string, rigid = false, color?: any): LuaMultiReturn<[Entity, Entity]>;
+    function Rope(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, length: number, addLength = 0, forceLimit = 0, width: number, material = 0, rigid = false, color?: any): LuaMultiReturn<[Entity, Entity]>;
     
     /**
      * [Server]
@@ -60415,7 +60415,7 @@ declare namespace constraint {
      * @param [material = ] - The material of the rope. If unset, will be solid black.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Slider(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, width: number, material?: string, color?: any): LuaMultiReturn<[Entity, Entity]>;
+    function Slider(ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, width: number, material = 0, color?: any): LuaMultiReturn<[Entity, Entity]>;
     
     /**
      * [Server]
@@ -60455,7 +60455,7 @@ declare namespace constraint {
      * @param [toggle = false] - Whether the winch should be on toggle.
      * @param [color = color_white] - The color of the rope. See [Global.Color](https://wiki.facepunch.com/gmod/Global.Color).
      */
-    function Winch(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, width: number, fwdBind: KEY, bwdBind: KEY, fwdSpeed: number, bwdSpeed: number, material?: string, toggle = false, color?: any): LuaMultiReturn<[Entity, Entity, Entity]>;
+    function Winch(player: Player, ent1: Entity, ent2: Entity, bone1: number, bone2: number, localPos1: Vector, localPos2: Vector, width: number, fwdBind: KEY, bwdBind: KEY, fwdSpeed: number, bwdSpeed: number, material = 0, toggle = false, color?: any): LuaMultiReturn<[Entity, Entity, Entity]>;
 
 }
 
@@ -67206,7 +67206,7 @@ declare namespace player_manager {
      * @param [matchBodySkin = false] - If set to `true`, the skin of the hands will be set to the skin of the playermodel. 
      *  This is useful when player models have multiple user-selectable skins.
      */
-    function AddValidHands(name: string, model: string, skin = 0, bodygroups = 0000000, matchBodySkin = false): void;
+    function AddValidHands(name: string, model: string, skin = 0, bodygroups = 0, matchBodySkin = false): void;
     
     /**
      * [Shared]
@@ -68790,7 +68790,7 @@ declare namespace render {
      * For more detailed information on the Stencil system, including usage examples, see the <page text="Stencils Render Reference">render_stencils</page> page
      * @param compareFunction - The Compare Function that each affected pixel's Stencil Buffer value will be evaluated against during a draw operation.
      */
-    function SetStencilCompareFunction(compareFunction: Enums/STENCILCOMPARISONFUNCTION): void;
+    function SetStencilCompareFunction(compareFunction: STENCILCOMPARISONFUNCTION): void;
     
     /**
      * [Client and Menu]
@@ -68819,7 +68819,7 @@ declare namespace render {
      * 		For more detailed information on the Stencil system, including usage examples, see the <page text="Stencils Render Reference">render_stencils</page> page
      * @param failOperation - The Stencil Operation to be performed if the Compare Function does not Pass a pixel.
      */
-    function SetStencilFailOperation(failOperation: Enums/STENCILOPERATION): void;
+    function SetStencilFailOperation(failOperation: STENCILOPERATION): void;
     
     /**
      * [Client and Menu]
@@ -68829,7 +68829,7 @@ declare namespace render {
      * 		For more detailed information on the Stencil system, including usage examples, see the <page text="Stencils Render Reference">render_stencils</page> page
      * @param passOperation - The Stencil Operation to be performed if the Compare Function Passes a pixel.
      */
-    function SetStencilPassOperation(passOperation: Enums/STENCILOPERATION): void;
+    function SetStencilPassOperation(passOperation: STENCILOPERATION): void;
     
     /**
      * [Client and Menu]
@@ -68880,7 +68880,7 @@ declare namespace render {
      * 		For more detailed information on the Stencil system, including usage examples, see the <page text="Stencils Render Reference">render_stencils</page> page
      * @param zFailOperation - The Stencil Operation to be performed if the Compare Function Passes a pixel, but the pixel fails the Depth Test.
      */
-    function SetStencilZFailOperation(zFailOperation: Enums/STENCILOPERATION): void;
+    function SetStencilZFailOperation(zFailOperation: STENCILOPERATION): void;
     
     /**
      * [Client]
@@ -69711,7 +69711,7 @@ declare namespace spawnmenu {
      * @param [parentID = 0] - The unique ID of the parent category. This will make the created category a subcategory of category with given unique ID. `0` makes this a base category (such as `Builder`).
      * @param [needsApp = ] - The needed game for this prop category, if one is needed. If the specified game is not mounted, the category isn't shown. This uses the shortcut name, e.g. `cstrike`, and not the Steam AppID.
      */
-    function AddPropCategory(classname: string, name: string, contents: any, icon: string, id = 1000, parentID = 0, needsApp?: string): void;
+    function AddPropCategory(classname: string, name: string, contents: any, icon: string, id = 1000, parentID = 0, needsApp = 0): void;
     
     /**
      * [Client]
@@ -70523,7 +70523,7 @@ declare namespace string {
      * @param [separator = ] - The separator to insert between each piece.
      * @param pieces - The table of pieces to concatenate. The keys for these must be numeric and sequential.
      */
-    function Implode(separator?: string, pieces: any): string;
+    function Implode(separator = 0, pieces: any): string;
     
     /**
      * [Shared and Menu]
@@ -70623,7 +70623,7 @@ declare namespace string {
      * @param repetitions - Times to repeat, this value gets rounded internally.
      * @param [separator = ] - String that will separate the repeated piece. Notice that it doesn't add this string to the start or the end of the result, only between the repeated parts.
      */
-    function rep(str: string, repetitions: number, separator?: string): string;
+    function rep(str: string, repetitions: number, separator = 0): string;
     
     /**
      * [Shared and Menu]
@@ -73282,7 +73282,7 @@ declare namespace util {
      * >Due to how [table](https://wiki.facepunch.com/gmod/table)s work in Lua, keys will not repeat within a table. See [util.KeyValuesToTablePreserveOrder](https://wiki.facepunch.com/gmod/util.KeyValuesToTablePreserveOrder) for alternative.
      * 
      * @param keyValues - The KeyValue string to convert.
-     * @param [usesEscapeSequences = false] - If set to true, will replace `\t`, `\n`, `&quot;` and `\\` in the input text with their escaped variants
+     * @param [usesEscapeSequences = false] - If set to true, will replace `\t`, `\n`, `"` and `\\` in the input text with their escaped variants
      * @param [preserveKeyCase = false] - Whether we should preserve key case (may fail) or not (always lowercase)
      */
     function KeyValuesToTable(keyValues: string, usesEscapeSequences = false, preserveKeyCase = false): any;
@@ -73292,7 +73292,7 @@ declare namespace util {
      * 
      * Similar to [util.KeyValuesToTable](https://wiki.facepunch.com/gmod/util.KeyValuesToTable) but it also preserves order of keys.
      * @param keyvals - The key value string
-     * @param [usesEscapeSequences = false] - If set to true, will replace `\t`, `\n`, `&quot;` and `\\` in the input text with their escaped variants
+     * @param [usesEscapeSequences = false] - If set to true, will replace `\t`, `\n`, `"` and `\\` in the input text with their escaped variants
      * @param [preserveKeyCase = false] - Whether we should preserve key case (may fail) or not (always lowercase)
      */
     function KeyValuesToTablePreserveOrder(keyvals: string, usesEscapeSequences = false, preserveKeyCase = false): any;

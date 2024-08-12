@@ -20,7 +20,9 @@ export function parseMarkup(markup: string, extraOptions: parser.X2jOptionsOptio
         .replace(/ > /g, ' &gt; ')
         .replace(/ <= /g, ' &lt;= ')
         .replace(/ >= /g, ' &gt;= ')
-        .replace(/`/g, '&grave;');
+        .replace(/`/g, '&grave;')
+        .replace(/\\\"/g, "&quot;")
+        ;
     const validation = parser.validate(markup);
     if (validation != true) {
         if (validation.err.code != 'InvalidTag') {

@@ -13,12 +13,14 @@ export function transformIdentifier(id: string) {
     if (id == 'constructor') {
         return 'constructor';
     }
+
     const invalidIDMap: Record<string, string> = {
         class: 'class_',
         function: 'function_',
         var: 'var_',
         default: 'default_',
         new: 'new_',
+        'delete': 'delete_'
     };
 
     if (invalidIDMap[id]) {

@@ -20,7 +20,7 @@ export function transformFunction(wikiFunc: WikiFunction): TSFunction {
 
         const isOptional = a.default != undefined;
 
-        const argName = isOptional ? `[${identifier} = ${fixDefault(a)}]` : identifier;
+        const argName = isOptional ? `[${identifier} = ${a.default}]` : identifier;
 
         return `@param ${argName} - ${description}`;
     };
@@ -41,13 +41,12 @@ export function transformFunction(wikiFunc: WikiFunction): TSFunction {
 }
 
 function fixDefault(arg: WikiArgument): string {
-    if (arg.type == "number") {
-        if (Number.isNaN(Number(arg.default!))) { // some weird hex fuckery
-            return arg.default!;
-        }
-        return Number(arg.default!).toString() // strip leading 0s causing ts errors in strict mode
+
+    if (Number.isNaN(Number(arg.default!))) { // for non-numbers just return the normal default
+        return arg.default!;
     }
-    return arg.default!;
+    return Number(arg.default!).toString() // strip leading 0s causing ts errors in strict mode
+
 }
 
 function transformArgs(func: WikiFunction): TSArgument[] {
@@ -59,7 +58,9 @@ function transformArgs(func: WikiFunction): TSArgument[] {
 
         const argMod = argMods.find((a) => a.arg.identifier === arg.name);
 
-        let defaultValue = arg.default;
+        
+
+        let defaultValue = fixDefault(arg);
 
         if (argMod) {
             if (argMod.arg.type) {
@@ -92,6 +93,12 @@ function inferType(type: string, desc: string) {
         } else if (links[1] === 'Color') {
             type = 'Color';
         }
+    }
+    if (type.startsWith("Structures/")) {
+        type = type.split('/')[1];
+    }
+    if (type.startsWith("Enums/")) {
+        type = type.split('/')[1];
     }
     return type;
 }
