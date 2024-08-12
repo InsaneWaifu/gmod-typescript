@@ -20,7 +20,7 @@ export function transformFunction(wikiFunc: WikiFunction): TSFunction {
 
         const isOptional = a.default != undefined;
 
-        const argName = isOptional ? `[${identifier} = ${a.default}]` : identifier;
+        const argName = isOptional ? `[${identifier} = ${fixDefault(a)}]` : identifier;
 
         return `@param ${argName} - ${description}`;
     };
@@ -38,6 +38,16 @@ export function transformFunction(wikiFunc: WikiFunction): TSFunction {
         docComment,
         ret,
     };
+}
+
+function fixDefault(arg: WikiArgument): string {
+    if (arg.type == "number") {
+        if (Number.isNaN(Number(arg.default!))) { // some weird hex fuckery
+            return arg.default!;
+        }
+        return Number(arg.default!).toString() // strip leading 0s causing ts errors in strict mode
+    }
+    return arg.default!;
 }
 
 function transformArgs(func: WikiFunction): TSArgument[] {
