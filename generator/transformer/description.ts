@@ -73,7 +73,8 @@ export function transformDescription(description: string): string {
         .replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
-        .replace(/&grave;/g, '`');
+        .replace(/&grave;/g, '`')
+        .replace(/&quot;/g, '\"');
 
     return unescapedResult;
 }
